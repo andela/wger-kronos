@@ -172,13 +172,6 @@ class DeleteUserByAdminTestCase(WorkoutManagerTestCase):
         self.user_login('member1')
         self.delete_user(fail=True)
 
-    def test_delete_user_member(self):
-        '''
-        Tests deleting the user account as a gym member
-        '''
-        self.user_login('member4')
-        self.delete_user(fail=True)
-
     def test_delete_user_anonymous(self):
         '''
         Tests deleting the user account as an anonymous user

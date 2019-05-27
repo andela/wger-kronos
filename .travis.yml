@@ -54,8 +54,9 @@ before_script:
 script:
   # Formatting
   - pep8 wger
+  - flake8 wger
 
-  # Javascript linting
+  # Javascript linting	
   - gulp lint
 
   # Regular application

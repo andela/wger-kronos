@@ -463,8 +463,8 @@ class Day(models.Model):
                     setting_tmp.append(setting)
 
                 # "Smart" textual representation
-                setting_text, setting_list, weight_list, reps_list, repetition_units, weight_units \
-                    = reps_smart_text(setting_tmp, set_obj)
+                setting_text, setting_list, weight_list, reps_list, repetition_units, \
+                    weight_units = reps_smart_text(setting_tmp, set_obj)
 
                 # Flag indicating whether all exercises have settings
                 has_setting_tmp = True if len(setting_tmp) > 0 else False
@@ -860,7 +860,8 @@ class WorkoutSession(models.Model):
         '''
 
         if (not self.time_end and self.time_start) or (self.time_end and not self.time_start):
-            raise ValidationError(_("If you enter a time, you must enter both start and end time."))
+            raise ValidationError(
+                _("If you enter a time, you must enter both start and end time."))
 
         if self.time_end and self.time_start and self.time_start > self.time_end:
             raise ValidationError(_("The start time cannot be after the end time."))

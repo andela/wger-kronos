@@ -255,7 +255,8 @@ class ExerciseCorrectView(ExercisesEditAddView, LoginRequiredMixin, UpdateView):
 
     def get_context_data(self, **kwargs):
         context = super(ExerciseCorrectView, self).get_context_data(**kwargs)
-        context['form_action'] = reverse('exercise:exercise:correct', kwargs={'pk': self.object.id})
+        context['form_action'] = reverse(
+            'exercise:exercise:correct', kwargs={'pk': self.object.id})
         context['title'] = _(u'Correct {0}').format(self.object.name)
         return context
 

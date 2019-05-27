@@ -106,7 +106,8 @@ pdfmetrics.registerFont(TTFont(
 pdfmetrics.registerFont(TTFont(
     'OpenSans-Regular', path_join(settings.SITE_ROOT, 'core/static/fonts/OpenSans-Regular.ttf')))
 pdfmetrics.registerFont(TTFont(
-    'OpenSans-Italic', path_join(settings.SITE_ROOT, 'core/static/fonts/OpenSans-LightItalic.ttf')))
+    'OpenSans-Italic', path_join(
+        settings.SITE_ROOT, 'core/static/fonts/OpenSans-LightItalic.ttf')))
 
 styleSheet = StyleSheet1()
 styleSheet.add(ParagraphStyle(

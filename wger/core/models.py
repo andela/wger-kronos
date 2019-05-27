@@ -176,8 +176,8 @@ by the US Department of Agriculture. It is extremely complete, with around
     notification_language = models.ForeignKey(Language,
                                               verbose_name=_('Notification language'),
                                               help_text=_('Language to use when sending you email '
-                                                          'notifications, e.g. email reminders for '
-                                                          'workouts. This does not affect the '
+                                                          'notifications, e.g. email reminders for'
+                                                          ' workouts. This does not affect the '
                                                           'language used on the website.'),
                                               default=2)
 
@@ -299,7 +299,7 @@ by the US Department of Agriculture. It is extremely complete, with around
     ro_access = models.BooleanField(verbose_name=_('Allow external access'),
                                     help_text=_('Allow external users to access your workouts and '
                                                 'logs in a read-only mode. You need to set this '
-                                                'before you can share links e.g. to social media.'),
+                                                'before you can share links e.g.to social media.'),
                                     default=False)
     '''Allow anonymous read-only access'''
 
@@ -349,7 +349,7 @@ by the US Department of Agriculture. It is extremely complete, with around
         '''
         if ((self.sleep_hours and self.freetime_hours and self.work_hours)
            and (self.sleep_hours + self.freetime_hours + self.work_hours) > 24):
-                raise ValidationError(_('The sum of all hours has to be 24'))
+            raise ValidationError(_('The sum of all hours has to be 24'))
 
     def __str__(self):
         '''
