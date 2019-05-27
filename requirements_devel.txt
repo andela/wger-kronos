@@ -6,6 +6,6 @@
 -r requirements.txt
 
 # Development packages
-pep8
-django-debug-toolbar
-coverage
+pep8==1.7.1
+django-debug-toolbar==1.9
+coverage==4.5.3
