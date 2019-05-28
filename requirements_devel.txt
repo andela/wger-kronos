@@ -4,7 +4,7 @@
 # Production packages
 -r requirements.txt
 # Development packages
-pep8
-django-debug-toolbar==1.9 
-coverage
+pep8==1.7.1
+django-debug-toolbar==1.9
+coverage==4.5.3
 flake8==3.7.7
