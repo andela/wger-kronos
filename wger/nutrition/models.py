@@ -85,8 +85,8 @@ class NutritionPlan(models.Model):
     has_goal_calories = models.BooleanField(verbose_name=_('Use daily calories'),
                                             default=False,
                                             help_text=_("Tick the box if you want to mark this "
-                                                        "plan as having a goal amount of calories."
-                                                        " You can use the calculator or enter the "
+                                                        "plan as having a goal amount of calories. "
+                                                        "You can use the calculator or enter the "
                                                         "value yourself."))
     '''A flag indicating whether the plan has a goal amount of calories'''
 
@@ -109,50 +109,63 @@ class NutritionPlan(models.Model):
         '''
         Sums the nutritional info of all items in the plan
         '''
-        use_metric = self.user.userprofile.use_metric
-        unit = 'kg' if use_metric else 'lb'
-        result = {'total': {'energy': 0,
-                            'protein': 0,
-                            'carbohydrates': 0,
-                            'carbohydrates_sugar': 0,
-                            'fat': 0,
-                            'fat_saturated': 0,
-                            'fibres': 0,
-                            'sodium': 0},
-                  'percent': {'protein': 0,
-                              'carbohydrates': 0,
-                              'fat': 0},
-                  'per_kg': {'protein': 0,
-                             'carbohydrates': 0,
-                             'fat': 0},
-                  }
+        nutritional_plan_from_cache = cache.get(
+            cache_mapper.get_nutritional_value_plan(self.pk))
+        if not nutritional_plan_from_cache:
+            use_metric = self.user.userprofile.use_metric
+            unit = 'kg' if use_metric else 'lb'
+            result = {
+                'total': {
+                    'energy': 0,
+                    'protein': 0,
+                    'carbohydrates': 0,
+                    'carbohydrates_sugar': 0,
+                    'fat': 0,
+                    'fat_saturated': 0,
+                    'fibres': 0,
+                    'sodium': 0
+                },
+                'percent': {
+                    'protein': 0,
+                    'carbohydrates': 0,
+                    'fat': 0
+                },
+                'per_kg': {
+                    'protein': 0,
+                    'carbohydrates': 0,
+                    'fat': 0
+                },
+            }
 
-        # Energy
-        for meal in self.meal_set.select_related():
-            values = meal.get_nutritional_values(use_metric=use_metric)
-            for key in result['total'].keys():
-                result['total'][key] += values[key]
+            # Energy
+            for meal in self.meal_set.select_related():
+                values = meal.get_nutritional_values(use_metric=use_metric)
+                for key in result['total'].keys():
+                    result['total'][key] += values[key]
 
-        energy = result['total']['energy']
+            energy = result['total']['energy']
 
-        # In percent
-        if energy:
-            for key in result['percent'].keys():
-                result['percent'][key] = \
-                    result['total'][key] * ENERGY_FACTOR[key][unit] / energy * 100
+            # In percent
+            if energy:
+                for key in result['percent'].keys():
+                    result['percent'][key] = \
+                        result['total'][key] * ENERGY_FACTOR[key][unit] / energy * 100
 
-        # Per body weight
-        weight_entry = self.get_closest_weight_entry()
-        if weight_entry:
-            for key in result['per_kg'].keys():
-                result['per_kg'][key] = result['total'][key] / weight_entry.weight
+            # Per body weight
+            weight_entry = self.get_closest_weight_entry()
+            if weight_entry:
+                for key in result['per_kg'].keys():
+                    result['per_kg'][key] = result['total'][key] / weight_entry.weight
 
-        # Only 2 decimal places, anything else doesn't make sense
-        for key in result.keys():
-            for i in result[key]:
-                result[key][i] = Decimal(result[key][i]).quantize(TWOPLACES)
+            # Only 2 decimal places, anything else doesn't make sense
+            for key in result.keys():
+                for i in result[key]:
+                    result[key][i] = Decimal(result[key][i]).quantize(TWOPLACES)
 
-        return result
+            cache.set(
+                cache_mapper.get_nutritional_value_plan(self.pk), result)
+            return result
+        return nutritional_plan_from_cache
 
     def get_closest_weight_entry(self):
         '''
@@ -392,8 +405,9 @@ class Ingredient(AbstractLicenseModel, models.Model):
         equal = True
         if isinstance(other, self.__class__):
             for i in self._meta.fields:
-                if (hasattr(self, i.name) and hasattr(other, i.name) and
-                   (getattr(self, i.name, None) != getattr(other, i.name, None))):
+                if (
+                    hasattr(self, i.name) and hasattr(other, i.name) and (
+                        getattr(self, i.name, None) != getattr(other, i.name, None))):
                     equal = False
         else:
             equal = False

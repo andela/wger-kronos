@@ -17,5 +17,17 @@
 
 
 from wger import get_version
+from django.apps import AppConfig
 
 VERSION = get_version()
+
+
+class NutritionConfig(AppConfig):
+    name = "wger.nutrition"
+
+    def ready(self):
+        import wger.nutrition.signals
+        return wger.nutrition.signals
+
+
+default_app_config = 'wger.nutrition.NutritionConfig'
