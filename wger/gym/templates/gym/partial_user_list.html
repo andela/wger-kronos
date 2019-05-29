@@ -1,6 +1,7 @@
 {% load i18n staticfiles %}
 
 <link rel="stylesheet" type="text/css" href="{% static 'bower_components/datatables/media/css/dataTables.bootstrap.min.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'css/present_deactivated_users.css' %}">
 <script src="{% static 'bower_components/datatables/media/js/jquery.dataTables.min.js' %}" ></script>
 <script src="{% static 'bower_components/datatables/media/js/dataTables.bootstrap.min.js' %}" ></script>
 <script>
@@ -14,6 +15,16 @@ $(document).ready( function () {
 });
 </script>
 
+<div class="tab">
+    <button class="tablinks" onclick="displayMembers(event, 'active_users')" id="defaultOpen">Active Users</button>
+    <button class="tablinks" onclick="displayMembers(event, 'deactivated_users')">Deactivated Users</button>
+</div>
+
+<!-- table for active members -->
+
+ <div id="active_users" class="tabcontent">
+<table class="table table-hover" class="main_member_list">
+
 <table class="table table-hover" id="main_member_list">
 <thead>
 <tr>
@@ -23,7 +34,7 @@ $(document).ready( function () {
 </tr>
 </thead>
 <tbody>
-{% for current_user in user_table.users %}
+{% for current_user in user_table.active_users %}
 <tr>
     <td>
         {{current_user.obj.pk}}
@@ -52,3 +63,69 @@ $(document).ready( function () {
 {% endfor %}
 </tbody>
 </table>
+
+</div>
+
+<!-- table for deactivated members -->
+
+ <div id="deactivated_users" class="tabcontent">
+<table class="table table-hover" class="main_member_list">
+    <thead>
+    <tr>
+        {% for key in user_table.keys %}
+            <th>{{ key }}</th>
+        {% endfor %}
+    </tr>
+    </thead>
+    <tbody>
+    {% for current_user in user_table.deactivated_users %}
+    <tr>
+        <td>
+            {{current_user.obj.pk}}
+        </td>
+        <td>
+            <a href="{% url 'core:user:overview' current_user.obj.pk %}">{{current_user.obj}}</a>
+        </td>
+        <td>
+            {{current_user.obj.get_full_name}}
+        </td>
+        <td data-order="{{current_user.last_log|date:'U'}}">
+            {{current_user.last_log|default:'-/-'}}
+        </td>
+        {% if show_gym %}
+        <td>
+            {% if current_user.obj.userprofile.gym_id %}
+                <a href="{{ current_user.obj.userprofile.gym.get_absolute_url }}">
+                {{ current_user.obj.userprofile.gym }}
+                </a>
+            {% else %}
+                -/-
+            {% endif %}
+        </td>
+        {% endif %}
+    </tr>
+    {% endfor %}
+    </tbody>
+    </table>
+</div>
+
+<script>
+function displayMembers(evt, memberTab) {
+  var i;
+  var tabcontent;
+  var tablinks;
+  tabcontent = document.getElementsByClassName('tabcontent');
+    for (i = 0; i < tabcontent.length; i++) {
+        tabcontent[i].style.display = 'none';
+}
+  tablinks = document.getElementsByClassName('tablinks');
+    for (i = 0;
+    i < tablinks.length;
+    i++) {
+      tablinks[i].className = tablinks[i].className.replace(' active', '');
+}
+  document.getElementById(memberTab).style.display = 'block';
+  evt.currentTarget.className += ' active';
+}
+document.getElementById('defaultOpen').click();
+</script>
