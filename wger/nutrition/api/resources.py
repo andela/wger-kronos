@@ -113,7 +113,8 @@ class MealResource(ModelResource):
     '''
 
     plan = fields.ToOneField(NutritionPlanResource, 'plan')
-    meal_items = fields.ToManyField('wger.nutrition.api.resources.MealItemResource', 'mealitem_set')
+    meal_items = fields.ToManyField(
+        'wger.nutrition.api.resources.MealItemResource', 'mealitem_set')
 
     def authorized_read_list(self, object_list, bundle):
         '''

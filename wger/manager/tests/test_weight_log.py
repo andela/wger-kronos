@@ -251,14 +251,14 @@ class WeightlogTestCase(WorkoutManagerTestCase):
         workout2 = Workout.objects.get(pk=2)
 
         WorkoutLog.objects.all().delete()
-        l = WorkoutLog()
-        l.user = user1
-        l.date = datetime.date(2014, 1, 5)
-        l.exercise = Exercise.objects.get(pk=1)
-        l.workout = workout1
-        l.weight = 10
-        l.reps = 10
-        l.save()
+        workoutlog = WorkoutLog()
+        workoutlog.user = user1
+        workoutlog.date = datetime.date(2014, 1, 5)
+        workoutlog.exercise = Exercise.objects.get(pk=1)
+        workoutlog.workout = workout1
+        workoutlog.weight = 10
+        workoutlog.reps = 10
+        workoutlog.save()
 
         session1 = WorkoutSession()
         session1.user = user1
@@ -284,7 +284,7 @@ class WeightlogTestCase(WorkoutManagerTestCase):
         session3.date = datetime.date(2014, 1, 5)
         session3.save()
 
-        self.assertEqual(l.get_workout_session(), session1)
+        self.assertEqual(workoutlog.get_workout_session(), session1)
 
 
 class WeightLogDeleteTestCase(WorkoutManagerDeleteTestCase):

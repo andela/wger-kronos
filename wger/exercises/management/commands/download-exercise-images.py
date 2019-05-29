@@ -92,7 +92,8 @@ class Command(BaseCommand):
                 continue
 
             # Get all images
-            images = requests.get(image_api.format(remote_url, exercise_id), headers=headers).json()
+            images = requests.get(
+                image_api.format(remote_url, exercise_id), headers=headers).json()
 
             if images['count']:
 

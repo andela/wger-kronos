@@ -110,8 +110,8 @@ class GymConfig(models.Model):
     default_gym = models.ForeignKey(Gym,
                                     verbose_name=_('Default gym'),
                                     help_text=_('Select the default gym for this installation. '
-                                                'This will assign all new registered users to this '
-                                                'gym and update all existing users without a '
+                                                'This will assign all new registered users to this'
+                                                ' gym and update all existing users without a '
                                                 'gym.'),
                                     null=True,
                                     blank=True)

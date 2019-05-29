@@ -61,7 +61,8 @@ from wger.utils.widgets import Html5DateInput
 class DemoUserForm(Form):
     captcha = ReCaptchaField(attrs={'theme': 'clean'},
                              label=_('Confirmation text'),
-                             help_text=_('As a security measure, please enter the previous words'),)
+                             help_text=_(
+                                 'As a security measure, please enter the previous words'),)
 
 
 class WorkoutForm(ModelForm):

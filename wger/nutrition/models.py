@@ -85,8 +85,8 @@ class NutritionPlan(models.Model):
     has_goal_calories = models.BooleanField(verbose_name=_('Use daily calories'),
                                             default=False,
                                             help_text=_("Tick the box if you want to mark this "
-                                                        "plan as having a goal amount of calories. "
-                                                        "You can use the calculator or enter the "
+                                                        "plan as having a goal amount of calories."
+                                                        " You can use the calculator or enter the "
                                                         "value yourself."))
     '''A flag indicating whether the plan has a goal amount of calories'''
 
@@ -394,7 +394,7 @@ class Ingredient(AbstractLicenseModel, models.Model):
             for i in self._meta.fields:
                 if (hasattr(self, i.name) and hasattr(other, i.name) and
                    (getattr(self, i.name, None) != getattr(other, i.name, None))):
-                        equal = False
+                    equal = False
         else:
             equal = False
         return equal
