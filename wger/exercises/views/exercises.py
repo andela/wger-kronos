@@ -60,7 +60,6 @@ from wger.utils.widgets import (
 from wger.config.models import LanguageConfig
 from wger.weight.helpers import process_log_entries
 
-
 logger = logging.getLogger(__name__)
 
 

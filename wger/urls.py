@@ -30,6 +30,9 @@ from wger.exercises.sitemap import ExercisesSitemap
 from wger.utils.generic_views import TextTemplateView
 from wger.utils.generic_views import WebappManifestView
 
+from wger.exercises.api.views import ExercisesListSpecial
+from wger.exercises.api.views import ExerciseSpecial
+
 from wger.exercises.api import resources as exercises_api
 from wger.nutrition.api import resources as nutrition_api
 from wger.manager.api import resources as manager_api
@@ -166,6 +169,17 @@ urlpatterns += [
     url(r'^api/v2/exercise/search/$',
         exercises_api_views.search,
         name='exercise-search'),
+
+    url(r'^api/v2/exercise/special/$',
+        ExercisesListSpecial.as_view(),
+        name='exercise-special'),
+
+     url(r'^api/v2/exercise/special/(?P<pk>\d+)/$',
+        ExerciseSpecial.as_view(),
+        name='exercise-special-detail'),
+
+
+
     url(r'^api/v2/ingredient/search/$',
         nutrition_api_views.search,
         name='ingredient-search'),
