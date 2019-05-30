@@ -18,6 +18,11 @@ django-sortedm2m==1.5.0
 django-bower==5.2.0
 invoke==1.2.0
 requests==2.21.0
+whitenoise==3.3.1
+gunicorn==19.9.0
+psycopg2==2.8.2
+psycopg2-binary==2.8.2
+npm
 # REST API
 djangorestframework>=3.2,<3.3
 django-filter==1.1.0
