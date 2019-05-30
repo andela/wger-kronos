@@ -1,3 +1,18 @@
+Wger-kronos web application
+===========================
+
+.. image:: https://travis-ci.com/andela/wger-kronos.svg?branch=develop
+    :target: https://travis-ci.com/andela/wger-kronos
+
+
+.. image:: https://api.codeclimate.com/v1/badges/4e43710ee819b2f8ebd9/test_coverage
+    :target: https://codeclimate.com/github/andela/wger-kronos/test_coverage
+    :alt: Test Coverage
+
+
+.. image:: https://api.codacy.com/project/badge/Grade/e7b7ec017fde4621be10eaeae244876f
+    :target: https://www.codacy.com/app/Emmanuel-Dominic/wger-kronos?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=andela/wger-kronos&amp;utm_campaign=Badge_Grade
+
 Thank you for downloading wger Workout Manager. wger (ˈvɛɡɐ) is a free, open source web
 application that manages your exercises and personal workouts, weight and diet
 plans. It can also be used as a simple gym management utility, providing different
@@ -66,10 +81,10 @@ Then install the python packages from pypi in the virtualenv::
  $ git clone https://github.com/wger-project/wger.git
  $ cd wger
  $ pip install -r requirements.txt  # or requirements_devel.txt to develop
- $ invoke create_settings \
+ $ invoke create-settings \
           --settings-path /home/wger/wger/settings.py \
           --database-path /home/wger/wger/database.sqlite
- $ invoke bootstrap_wger \
+ $ invoke bootstrap-wger \
           --settings-path /home/wger/wger/settings.py \
           --no-start-server
  $ python manage.py runserver
