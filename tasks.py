@@ -141,7 +141,7 @@ def create_settings(context, settings_path=None, database_path=None, url=None, d
 
     # The environment variable is set by travis during testing
     if database_type == 'postgresql':
-        dbengine = 'postgresql_psycopg2'
+        dbengine = 'postgresql'
         dbname = "'test_wger'"
         dbuser = 'postgres'
         dbpassword = ''

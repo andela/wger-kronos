@@ -2,6 +2,7 @@
 # -*- coding: utf-8 -*-
 
 from wger.settings_global import *
+import os
 
 # Use 'DEBUG = True' to get more details for server errors
 DEBUG = True
@@ -13,21 +14,21 @@ ADMINS = (
 MANAGERS = ADMINS
 
 
-DATABASES = {{
-    'default': {{
-        'ENGINE': 'django.db.backends.{dbengine}',
-        'NAME': {dbname},
-        'USER': '{dbuser}',
-        'PASSWORD': '{dbpassword}',
-        'HOST': '{dbhost}',
-        'PORT': '{dbport}',
-    }}
-}}
+DATABASES = {
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': os.environ.get('NAME'),
+        'USER': os.environ.get('USER'),
+        'PASSWORD': os.environ.get('PASSWORD'),
+        'HOST': os.environ.get('HOST'),
+        'PORT': '5432',
+    }
+}
 
-# DATATBASE = {'default': dj_database_url.config(default=os.environ.get("DATABASE_URL"))}
+# DATABASES = {'default': dj_database_url.config(os.environ.get('DATABASE_URL', None))}
 
 # Make this unique, and don't share it with anybody.
-SECRET_KEY = '{default_key}'
+SECRET_KEY = 'b$%mn@q(q3ztu_(a)-8*hpafjlz=te2ov71vc8nm&0_5sxx9fp'
 
 # Your reCaptcha keys
 RECAPTCHA_PUBLIC_KEY = ''
@@ -37,11 +38,11 @@ NOCAPTCHA = True
 # The site's URL (e.g. http://www.my-local-gym.com or http://localhost:8000)
 # This is needed for uploaded files and images (exercise images, etc.) to be
 # properly served.
-SITE_URL = '{siteurl}'
+SITE_URL = 'https://wger-kronos.herokuapp.com/'
 
 # Path to uploaded files
 # Absolute filesystem path to the directory that will hold user-uploaded files.
-MEDIA_ROOT = {media_folder_path}
+MEDIA_ROOT = '/Users/manueldominic/.local/share/wger/media'
 MEDIA_URL = '/media/'
 
 # Allow all hosts to access the application. Change if used in production.
@@ -59,3 +60,10 @@ WGER_SETTINGS['EMAIL_FROM'] = 'wger Workout Manager <wger@example.com>'
 
 # Your twitter handle, if you have one for this instance.
 #WGER_SETTINGS['TWITTER'] = ''
+
+
+
+# deploy static files
+STATIC_URL = '/static/'
+STATIC_ROOT = os.path.join(BASE_DIR, 'static/')
+MIDDLEWARE = ('django.middleware.security.SecurityMiddleware', 'whitenoise.middleware.WhiteNoiseMiddleware',)
