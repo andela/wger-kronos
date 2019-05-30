@@ -190,3 +190,8 @@ or (at your option) any later version.
 
 Some images where taken from Wikipedia, see the SOURCES file in their respective
 folders for more details.
+
+
+.. image:: https://api.codacy.com/project/badge/Grade/c6ec5f95eb224f81b7cb060e6b7824ac
+   :alt: Codacy Badge
+   :target: https://app.codacy.com/app/Emmanuel-Dominic/wger-kronos?utm_source=github.com&utm_medium=referral&utm_content=andela/wger-kronos&utm_campaign=Badge_Grade_Settings
