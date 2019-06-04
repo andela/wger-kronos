@@ -20,8 +20,8 @@ invoke==1.2.0
 requests==2.21.0
 whitenoise==3.3.1
 gunicorn==19.9.0
-psycopg2==2.8.2
-psycopg2-binary==2.8.2
+psycopg2==2.7.7
+psycopg2-binary==2.7.7
 npm
 # REST API
 djangorestframework>=3.2,<3.3

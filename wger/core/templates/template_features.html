@@ -51,6 +51,7 @@
     <link href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css"rel="stylesheet" integrity="sha384-wvfXpqpZZVQGK6TAh5PVlGOfQNHSoD2xbE+QkPxCAFlNEevoEH3Sl0sibVcOQVnN" crossorigin="anonymous">
     <link rel="stylesheet" type="text/css" href="{% static 'css/agency.css' %}">
     <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/shariff/1.26.2/shariff.min.css">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/styles.css' %}">    
     {% endcompress %}
 
     <link rel="icon" href="{% static 'images/favicon.png' %}" type="image/png">
@@ -76,51 +77,43 @@
 
 
 <footer class="bg-darkest-gray">
-    <div class="container">
-        <div class="row">
-            <div class="col-md-4">
-                <ul class="list-inline quicklinks">
-                    <li><a href="{% url 'software:contribute' %}">{% trans "Contribute!" %}</a></li>
-                    <li><a href="{% url 'core:contact' %}">{% trans "Get in touch" %}</a></li>
-                </ul>
-            </div>
-            <div class="col-md-4">
-                <ul class="list-inline social-buttons">
-                    <li>
-                        <a href="https://github.com/wger-project/wger" title="Github">
-                            <span class="{% fa_class 'github' %}"></span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="https://twitter.com/wger_de" title="Twitter">
-                         <span class="{% fa_class 'twitter' %}"></span>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="https://www.transifex.com/rge/wger-workout-manager/" title="{% trans 'Translate' %}">
-                            <span class="{% fa_class 'globe' %}"></span>
-                        </a>
-                    </li>
-                    <li>
-                      {% if show_shariff %}
-                        {% include 'misc/fragments/shariff_modal.html' %}
-                        <a data-toggle="modal" href="#shariffModal" title="Share">
-                          <span class="{% fa_class 'share-alt' %}"></span>
-                        </a>
-                        <div class="clearfix"></div>
-                      {% endif %}
-                    </li>
-                </ul>
-            </div>
-            <div class="col-md-4">
-                <ul class="list-inline quicklinks">
-                    <li><a href="{% url 'core:about' %}">{% trans "About" %}</a></li>
-
-                    <li><a href="{% url 'software:tos' %}">{% trans "Terms of service" %}</a></li>
-                </ul>
-            </div>
+        <div>
+            <ul class="list-inline quicklinks footer-links">
+                <li><a href="{% url 'software:contribute' %}">{% trans "Contribute!" %}</a></li>
+                <li><a href="{% url 'core:contact' %}">{% trans "Get in touch" %}</a></li>
+                <li><a href="{% url 'core:about' %}">{% trans "About" %}</a></li>
+                <li><a href="{% url 'software:tos' %}">{% trans "Terms of service" %}</a></li>
+            </ul>
         </div>
-    </div>
+
+        <div>
+            <ul class="list-inline social-buttons">
+                <li>
+                    <a href="https://github.com/wger-project/wger" title="Github">
+                        <span class="{% fa_class 'github' %}"></span>
+                    </a>
+                </li>
+                <li>
+                    <a href="https://twitter.com/wger_de" title="Twitter">
+                        <span class="{% fa_class 'twitter' %}"></span>
+                    </a>
+                </li>
+                <li>
+                    <a href="https://www.transifex.com/rge/wger-workout-manager/" title="{% trans 'Translate' %}">
+                        <span class="{% fa_class 'globe' %}"></span>
+                    </a>
+                </li>
+                <li>
+                    {% if show_shariff %}
+                    {% include 'misc/fragments/shariff_modal.html' %}
+                    <a data-toggle="modal" href="#shariffModal" title="Share">
+                        <span class="{% fa_class 'share-alt' %}"></span>
+                    </a>
+                    <div class="clearfix"></div>
+                    {% endif %}
+                </li>
+            </ul>
+        </div>
 </footer>
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/shariff/1.26.2/shariff.min.js"></script>

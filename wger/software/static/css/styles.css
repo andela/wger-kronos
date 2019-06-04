@@ -1,0 +1,86 @@
+.img-fluid{
+    width: 300px;
+    height: 300px;
+}
+nav {
+    width: 100%;
+    padding-left: 30px;
+    padding-right: 10px;
+    box-shadow: 0 1px 4px rgba(0,0,0,.9);  
+}
+  
+.logo {
+    display: inline-block;
+}
+  
+.nav-links {
+    list-style: none;
+}
+  
+.nav-item a {
+    display: inline-block;
+    padding: 10px 15px;
+    text-decoration: none;
+    color: white;
+}
+
+.nav-item:hover {
+    background-color: white;
+}
+.nav-item:hover a {
+    color: #181818;
+}
+
+.logo img {
+    width: 175px;
+    vertical-align: middle;
+}
+.nav-links {
+    display: flex;
+}
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+header .intro-text{
+    padding-top: 50px;
+    padding-bottom: 50px;
+}
+div.intro-lead-in{
+    display: inline;
+}
+nav a.logo{
+    font-size: 1.5em;
+}
+header{
+    background-image: linear-gradient(rgba(0, 0, 0, 0.5),rgba(0, 0, 0, 0.5)), 
+                        url(../images/gym_management.jpg);
+}
+ul.social-buttons li{
+    display: inline-flex;
+}
+div.carousel-caption{
+    position:relative; 
+    left:auto; 
+    right:auto;
+    padding: 60px;
+}
+section{
+    padding: 20px;
+}
+footer{
+    border-top: 1px solid #6c757d;  
+}
+div.advantages{
+    border-bottom: 1px solid #ccc;
+    margin-bottom: 20px;
+}
+ul.footer-links li {
+    display: inline-flex;
+    align-content: space-between;
+    padding: 10px;
+}
+.section-subheading div{
+    padding: 30px;
+}
