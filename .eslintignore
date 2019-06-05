@@ -1,8 +1,8 @@
 # Ignore the following files and directories
 /docs/
-/extras/
 /gulpfile.js
+/extras/
 /node_modules/
-/wger/core/static/bower_components/
-/wger/core/static/js/Sortable.min.js
+bower_components/
+wger/core/static/bower_components
 /wger/node_modules/
