@@ -7,7 +7,6 @@ from django.db import migrations, models
 def insert_data(apps, schema_editor):
     '''
     Inserts initial data for repetition and weight units
-
     Needed so that the migrations can go through without having to load any
     fixtures or perform any intermediate steps.
     '''
@@ -36,4 +35,4 @@ class Migration(migrations.Migration):
 
     operations = [
         migrations.RunPython(insert_data, reverse_code=migrations.RunPython.noop),
-    ]
+    ] 

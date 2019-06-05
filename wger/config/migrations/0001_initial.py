@@ -36,4 +36,4 @@ class Migration(migrations.Migration):
             },
             bases=(models.Model,),
         ),
-    ]
+    ] 

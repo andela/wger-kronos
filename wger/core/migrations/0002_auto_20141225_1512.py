@@ -47,4 +47,4 @@ class Migration(migrations.Migration):
             field=models.CharField(choices=[('1', 'Low'), ('2', 'Medium'), ('3', 'High')], null=True, max_length=1, help_text='Approximately', default='1', verbose_name='Physical intensity'),
             preserve_default=True,
         ),
-    ]
+    ] 

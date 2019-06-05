@@ -200,7 +200,6 @@ urlpatterns = [
     url(r'^feedback$',
         misc.FeedbackClass.as_view(),
         name='feedback'),
-
     url(r'^language/', include(patterns_language, namespace="language")),
     url(r'^user/', include(patterns_user, namespace="user")),
     url(r'^license/', include(patterns_license, namespace="license")),

@@ -36,4 +36,4 @@ class Migration(migrations.Migration):
             field=models.BooleanField(verbose_name='Allow external access', default=False, help_text='Allow external users to access your workouts and logs in a read-only mode. You need to set this before you can share links e.g. to social media.'),
             preserve_default=True,
         ),
-    ]
+    ] 

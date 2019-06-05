@@ -14,28 +14,31 @@
 #
 # You should have received a copy of the GNU Affero General Public License
 # along with Workout Manager.  If not, see <http://www.gnu.org/licenses/>.
-
 from django.contrib.auth.models import User
 from rest_framework import viewsets
+from rest_framework import status
 from rest_framework.response import Response
 from rest_framework.decorators import detail_route
-
+from rest_framework.permissions import AllowAny
 from wger.core.models import (
     UserProfile,
     Language,
     DaysOfWeek,
     License,
     RepetitionUnit,
-    WeightUnit)
+    WeightUnit,
+    UserModel
+)
 from wger.core.api.serializers import (
     UsernameSerializer,
     LanguageSerializer,
     DaysOfWeekSerializer,
     LicenseSerializer,
     RepetitionUnitSerializer,
-    WeightUnitSerializer
+    WeightUnitSerializer,
+    UserprofileSerializer,
+    UserApiSerializer
 )
-from wger.core.api.serializers import UserprofileSerializer
 from wger.utils.permissions import UpdateOnlyPermission, WgerPermission
 
 
@@ -121,3 +124,20 @@ class WeightUnitViewSet(viewsets.ReadOnlyModelViewSet):
     serializer_class = WeightUnitSerializer
     ordering_fields = '__all__'
     filter_fields = ('name', )
+
+
+class UserAPIViewSet(viewsets.ViewSet):
+    '''
+    API endpoint for api user objects
+    '''
+    permission_classes = (AllowAny,)
+    queryset = UserModel.objects.all()
+    serializer_class = UserApiSerializer
+
+    def post(self, request):
+        data = request.data
+        serializer = self.serializer_class(data=data)
+        serializer.is_valid(raise_exception=True)
+        serializer.save()
+        return Response({'message': 'api user successfully registered'},
+                        status=status.HTTP_201_CREATED)

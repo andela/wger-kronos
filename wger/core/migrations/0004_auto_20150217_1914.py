@@ -17,4 +17,4 @@ class Migration(migrations.Migration):
             field=models.IntegerField(default=0, verbose_name='Automatic reminders for weight entries', max_length=30, help_text='Number of days after the last weight entry (enter 0 to deactivate)'),
             preserve_default=True,
         ),
-    ]
+    ] 
