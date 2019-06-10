@@ -65,3 +65,9 @@ node_modules
 .env
 .vscode/
 venv/
+.DS_Store
+wger/.DS_Store
+wger/gym/.DS_Store
+wger/manager/.DS_Store
+wger/nutrition/.DS_Store
+wger/weight/.DS_Store
