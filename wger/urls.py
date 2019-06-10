@@ -124,6 +124,7 @@ router.register(r'weightentry', weight_api_views.WeightEntryViewSet, base_name='
 from django.contrib import admin
 admin.autodiscover()
 
+
 #
 # Sitemaps
 #
@@ -147,8 +148,8 @@ urlpatterns = i18n_patterns(
     url(r'^sitemap\.xml$',
         sitemap,
         {'sitemaps': sitemaps},
-        name='sitemap')
-)
+        name='sitemap'),
+          )
 
 #
 # URLs without language prefix
@@ -169,6 +170,10 @@ urlpatterns += [
         nutrition_api_views.search,
         name='ingredient-search'),
     url(r'^api/v2/', include(router.urls)),
+
+  # social_login url
+    url(r'^oauth/', include('social_django.urls', namespace='social')),
+
 ]
 
 #

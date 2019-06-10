@@ -16,8 +16,6 @@ browsing the site as the user "{{current_user}}", all actions are performed on h
 </div>
 {% endif %}
 
-
-
 <div class="row">
     <div class="col-sm-8">
         <h2 id="page-title" class="page-header">
@@ -43,8 +41,6 @@ browsing the site as the user "{{current_user}}", all actions are performed on h
     </div>
 </div>
 
-
-
 <div class="row">
     <div class="col-sm-8" id="main-content">
         {% if messages and not no_messages %}
@@ -61,10 +57,28 @@ browsing the site as the user "{{current_user}}", all actions are performed on h
         <div id="content">
         {% block content %}{% endblock %}
         </div>
+
+        <p><strong>-- OR --</strong></p>
+        
+        <div class="col-sm-6 form-group">
+                <a href="{% url 'social:begin' 'twitter' %}" class="btn btn-block btn-social btn-twitter" role="button">
+                    <i class="fa fa-twitter fa-fw"></i>
+                    Login with Twitter
+                </a>
+        
+                <a href="{% url 'social:begin' 'facebook' %}" class="btn btn-block btn-social btn-facebook" role="button">
+                    <i class="fa fa-facebook fa-fw"></i>
+                    Login with Facebook
+                </a>
+                <a href="{% url 'social:begin' 'google-oauth2' %}" class="btn btn-block btn-social btn-google" role="button">
+                    <i class="fa fa-google fa-fw"></i>
+                    Login with Google
+                </a>
+                      </div>    
     </div>
     <div class="col-sm-4" id="main-sidebar">
         {% block sidebar %}
         {% endblock %}
-    </div>
+    </div>          
 </div>
 {% endblock %}
