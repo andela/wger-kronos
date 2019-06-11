@@ -1,0 +1,11 @@
+echo "==================================>install bower"
+python manage.py bower install
+
+echo "==================================>applying migrations"
+echo 
+echo
+python manage.py migrate
+
+echo "==================================>loading fixture"
+invoke load-fixtures
+exit 0
