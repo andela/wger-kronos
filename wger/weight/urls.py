@@ -44,10 +44,10 @@ urlpatterns = [
     # url(r'^overview/$',
     #     views.overview,
     #     name='overview'),
-    url(r'^api/get_weight_data/(?P<username>[\w.@+-]+)$', # JS
+    url(r'^v2/get_weight_data/(?P<username>[\w.@+-]+)$', # JS
         views.get_weight_data,
-        name='weight-data'),
-    url(r'^api/get_weight_data/$', # JS
+        name='weight-data-1'),
+    url(r'^v2/get_weight_data/$', # JS
         views.get_weight_data,
         name='weight-data'),
 ]

@@ -1,0 +1,46 @@
+.button {
+    border: none;
+    color: white;
+    padding: 8px 24px;
+    text-align: auto;
+    text-decoration: none;
+    font-size: 16px;
+}
+
+.divbtn{
+    margin-left: 175%;
+    display: flex;   
+}
+
+.btn-1{
+    margin-right: 2px;
+    border-radius: 5px;
+    background-color: #8d20c0; 
+}
+
+.btn-2{
+    margin-left: 2px;
+    border-radius: 5px;
+    background-color: #4daf4a;
+}
+
+.btn-3{
+    margin-left: 10px;
+    height: 40px;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    display: flex;
+    background-color: #223ac2;
+}
+.divviz{
+    margin-left: 100%;
+    display: inline;   
+}
+
+.divsearch{
+    display: flex;
+}
+
+.form-control{
+    width: 200px;
+}

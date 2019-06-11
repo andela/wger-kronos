@@ -146,6 +146,9 @@ patterns_exercise = [
     url(r'^(?P<pk>\d+)/decline/$',
         exercises.decline,
         name='decline'),
+    url(r'^v2/graph/comparison$',
+        exercises.ComparisonListView.as_view(),
+        name='graph'),
 ]
 
 
