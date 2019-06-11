@@ -271,6 +271,7 @@ class ExercisesTestCase(WorkoutManagerTestCase):
                                     {'category': 2,
                                      'name_original': 'my test exercise',
                                      'license': 1,
+                                     'language': 1,
                                      'description': description,
                                      'muscles': [1, 2]})
         count_after = Exercise.objects.count()

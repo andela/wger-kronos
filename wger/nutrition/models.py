@@ -248,8 +248,7 @@ class Ingredient(AbstractLicenseModel, models.Model):
         ordering = ["name", ]
 
     language = models.ForeignKey(Language,
-                                 verbose_name=_('Language'),
-                                 editable=False)
+                                 verbose_name=_('Language'))
 
     user = models.ForeignKey(User,
                              verbose_name=_('User'),
