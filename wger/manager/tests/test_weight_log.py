@@ -266,6 +266,7 @@ class WeightlogTestCase(WorkoutManagerTestCase):
         session1.notes = 'Something here'
         session1.impression = '3'
         session1.date = datetime.date(2014, 1, 5)
+        session1.workoutlog = workoutlog
         session1.save()
 
         session2 = WorkoutSession()
@@ -274,6 +275,7 @@ class WeightlogTestCase(WorkoutManagerTestCase):
         session2.notes = 'Something else here'
         session2.impression = '1'
         session2.date = datetime.date(2014, 1, 1)
+        session1.workoutlog = workoutlog
         session2.save()
 
         session3 = WorkoutSession()
@@ -282,6 +284,7 @@ class WeightlogTestCase(WorkoutManagerTestCase):
         session3.notes = 'The notes here'
         session3.impression = '2'
         session3.date = datetime.date(2014, 1, 5)
+        session1.workoutlog = workoutlog
         session3.save()
 
         self.assertEqual(workoutlog.get_workout_session(), session1)
