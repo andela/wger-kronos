@@ -28,7 +28,6 @@ from wger.exercises.views import (
 )
 
 
-
 # sub patterns for muscles
 patterns_muscle = [
     url(r'^overview/$',
@@ -116,7 +115,6 @@ patterns_equipment = [
 ]
 
 
-# sub patterns for exercises
 patterns_exercise = [
     url(r'^overview/$',
         exercises.ExerciseListView.as_view(),
@@ -152,10 +150,10 @@ patterns_exercise = [
 
 
 urlpatterns = [
-   url(r'^muscle/', include(patterns_muscle, namespace="muscle")),
-   url(r'^image/', include(patterns_images, namespace="image")),
-   url(r'^comment/', include(patterns_comment, namespace="comment")),
-   url(r'^category/', include(patterns_category, namespace="category")),
-   url(r'^equipment/', include(patterns_equipment, namespace="equipment")),
-   url(r'^', include(patterns_exercise, namespace="exercise")),
+    url(r'^muscle/', include(patterns_muscle, namespace="muscle")),
+    url(r'^image/', include(patterns_images, namespace="image")),
+    url(r'^comment/', include(patterns_comment, namespace="comment")),
+    url(r'^category/', include(patterns_category, namespace="category")),
+    url(r'^equipment/', include(patterns_equipment, namespace="equipment")),
+    url(r'^', include(patterns_exercise, namespace="exercise")),
 ]

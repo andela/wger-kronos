@@ -19,11 +19,12 @@ from rest_framework import viewsets
 from rest_framework.permissions import IsAuthenticatedOrReadOnly
 from rest_framework.response import Response
 from rest_framework.decorators import detail_route, api_view
-
+from rest_framework.views import APIView
 from easy_thumbnails.alias import aliases
 from easy_thumbnails.files import get_thumbnailer
 
 from django.utils.translation import ugettext as _
+from django.http import Http404
 
 from wger.config.models import LanguageConfig
 from wger.exercises.api.serializers import (
@@ -34,6 +35,7 @@ from wger.exercises.api.serializers import (
     EquipmentSerializer,
     ExerciseCommentSerializer
 )
+from wger.exercises.api.serializers import ListAllSerializer
 from wger.exercises.models import (
     Exercise,
     Equipment,
@@ -44,6 +46,29 @@ from wger.exercises.models import (
 )
 from wger.utils.language import load_item_languages, load_language
 from wger.utils.permissions import CreateOnlyPermission
+
+
+class ExercisesListSpecial(APIView):
+    @classmethod
+    def get(cls, request):
+        queryset = Exercise.objects.all()
+        serializer = ListAllSerializer(data=queryset, many=True)
+        serializer.is_valid()
+        return Response(serializer.data)
+
+
+class ExerciseSpecial(APIView):
+    @classmethod
+    def get_object(cls, pk):
+        try:
+            return Exercise.objects.get(pk=pk)
+        except Exercise.DoesNotExist:
+            raise Http404
+
+    def get(self, request, pk):
+        snippet = self.get_object(pk)
+        serializer = ExerciseSerializer(snippet)
+        return Response(serializer.data)
 
 
 class ExerciseViewSet(viewsets.ModelViewSet):

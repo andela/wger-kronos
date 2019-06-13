@@ -25,6 +25,24 @@ from wger.exercises.models import (
 )
 
 
+class ListAllSerializer(serializers.ModelSerializer):
+    '''
+    Special Exercise List serializer
+    '''
+    my_url = serializers.SerializerMethodField('get_absolute_url')
+
+    @classmethod
+    def get_absolute_url(cls, obj):
+        '''
+        Returns the canonical URL to view an exercise
+        '''
+        return "/api/v2/exercise/special/{}".format(obj.id)
+
+    class Meta:
+        model = Exercise
+        fields = ('name', 'my_url')
+
+
 class ExerciseSerializer(serializers.ModelSerializer):
     '''
     Exercise serializer

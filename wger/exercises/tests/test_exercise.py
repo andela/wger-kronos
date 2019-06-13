@@ -17,6 +17,7 @@ import json
 from django.core import mail
 from django.core.cache import cache
 from django.core.urlresolvers import reverse
+from rest_framework import status
 
 from wger.core.tests.base_testcase import (
     STATUS_CODES_FAIL,
@@ -390,6 +391,19 @@ class ExercisesTestCase(WorkoutManagerTestCase):
 
         self.user_login('test')
         self.search_exercise()
+
+    def test_show_all_excercise_infos(self):
+        response = self.client.get('/api/v2/exercise/special/')
+        self.assertIsInstance(response.data, list)
+        self.assertTrue(len(response.data), len(Exercise.objects.all()))
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+
+    def test_show_single_excercise_info(self):
+        self.user_login('admin')
+        self.add_exercise_success(admin=True)
+        response = self.client.get('/api/v2/exercise/special/1', follow=True)
+        self.assertEqual(response.status_code, status.HTTP_200_OK)
+        self.assertEqual(response.data["name"], 'An exercise')
 
 
 class DeleteExercisesTestCase(WorkoutManagerDeleteTestCase):
