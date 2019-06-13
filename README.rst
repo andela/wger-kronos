@@ -13,6 +13,9 @@ Wger-kronos web application
 .. image:: https://api.codacy.com/project/badge/Grade/e7b7ec017fde4621be10eaeae244876f
     :target: https://www.codacy.com/app/Emmanuel-Dominic/wger-kronos?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=andela/wger-kronos&amp;utm_campaign=Badge_Grade
 
+.. image:: https://coveralls.io/repos/github/andela/wger-kronos/badge.svg?branch=develop
+    :target: https://coveralls.io/github/andela/wger-kronos?branch=develop
+
 Thank you for downloading wger Workout Manager. wger (ˈvɛɡɐ) is a free, open source web
 application that manages your exercises and personal workouts, weight and diet
 plans. It can also be used as a simple gym management utility, providing different
