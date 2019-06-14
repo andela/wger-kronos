@@ -36,4 +36,4 @@ class Migration(migrations.Migration):
             name='log',
             field=models.ForeignKey(editable=False, to='email.Log'),
         ),
-    ]
+    ] 

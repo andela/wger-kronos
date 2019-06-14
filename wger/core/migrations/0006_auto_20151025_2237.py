@@ -62,4 +62,4 @@ class Migration(migrations.Migration):
 
     operations = [
         migrations.RunPython(create_usercache, delete_usercache)
-    ]
+    ] 

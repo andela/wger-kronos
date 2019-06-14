@@ -123,6 +123,11 @@ class UserProfile(models.Model):
     Flag to mark a temporary user (demo account)
     '''
 
+    is_allowed = models.BooleanField(default=False)
+    '''
+    This checks for permissions for create other users via api
+    '''
+
     #
     # User preferences
     #
@@ -647,3 +652,15 @@ class WeightUnit(models.Model):
         This is done basically to not litter the code with magic IDs
         '''
         return self.id in (1, 2)
+
+
+@python_2_unicode_compatible
+class UserModel(models.Model):
+    created_by = models.ForeignKey(User, on_delete=models.CASCADE, related_name='user_name')
+    api_user = models.OneToOneField(User, on_delete=models.CASCADE)
+
+    class Meta:
+        unique_together = ('api_user', 'created_by',)
+
+    def __str__(self):
+        return self.created_by

@@ -4,5 +4,8 @@
 /extras/
 /node_modules/
 bower_components/
-wger/core/static/bower_components
+/wger/core/static/bower_components/
+/wger/core/static/js/Sortable.min.js
 /wger/node_modules/
+.DS_Store
+wger/.DS_Store
