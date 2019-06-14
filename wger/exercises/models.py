@@ -77,6 +77,26 @@ class Muscle(models.Model):
         '''
         return False
 
+    def delete(self, *args, **kwargs):
+        """
+        Reset all cached info on muscle delete
+        """
+        for language in Language.objects.all():
+            delete_template_fragment_cache("exercise-overview", language.id)
+            delete_template_fragment_cache(
+                "exercise-overview-mobile", language.id
+            )
+            delete_template_fragment_cache(
+                "muscle-overview", language.id
+            )
+            delete_template_fragment_cache(
+                "equipment-overview", language.id
+            )
+        muscle_exercises = Exercise.objects.filter(muscles=self).iterator()
+        for exercise in muscle_exercises:
+            cache.delete(cache_mapper.get_exercise_muscle_bg_key(exercise.id))
+        super(Muscle, self).delete(*args, **kwargs)
+
 
 @python_2_unicode_compatible
 class Equipment(models.Model):
