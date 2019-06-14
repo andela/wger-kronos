@@ -186,7 +186,8 @@ class ExercisesEditAddView(WgerFormMixin):
                           'muscles_secondary',
                           'equipment',
                           'license',
-                          'license_author']
+                          'license_author',
+                          'language']
 
             class Media:
                 js = ('/static/bower_components/tinymce/tinymce.min.js',)
@@ -222,7 +223,7 @@ class ExerciseAddView(ExercisesEditAddView, LoginRequiredMixin, CreateView):
         '''
         Set language, author and status
         '''
-        form.instance.language = load_language()
+        form.instance.language = load_language(form.instance.language.short_name)
         form.instance.set_author(self.request)
         return super(ExerciseAddView, self).form_valid(form)
 

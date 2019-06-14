@@ -34,6 +34,7 @@ class ExercisesCorrectionTestCase(WorkoutManagerTestCase):
                                      'name_original': 'my test exercise',
                                      'license': 2,
                                      'description': description,
+                                     'language': 1,
                                      'muscles': [3]})
 
         if fail:
