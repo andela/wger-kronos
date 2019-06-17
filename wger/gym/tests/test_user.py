@@ -239,3 +239,25 @@ class TrainerLogoutTestCase(WorkoutManagerTestCase):
 
         self.client.get(reverse('core:user:trainer-login', kwargs={'user_pk': 1}))
         self.assertFalse(self.client.session.get('trainer.identity'))
+
+
+class ManagerTestCase(WorkoutManagerTestCase):
+    '''
+    Test manager deactivate/activate a trainer
+    '''
+    def test_deactivate_trainer(self, fail=False):
+        self.user_login("general_manager1")
+
+        user = User.objects.get(pk=4)
+
+        user.is_active = True
+        user.save()
+        self.assertTrue(user.is_active)
+
+        response = self.client.get(reverse('core:user:deactivate', kwargs={'pk': user.pk}))
+        user = User.objects.get(pk=4)
+        self.assertIn(response.status_code, (302, 403))
+        if fail:
+            self.assertTrue(user.is_active)
+        else:
+            self.assertFalse(user.is_active)

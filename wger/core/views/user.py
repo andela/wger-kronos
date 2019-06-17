@@ -86,7 +86,6 @@ def login(request):
 def delete(request, user_pk=None):
     '''
     Delete a user account and all his data, requires password confirmation first
-
     If no user_pk is present, the user visiting the URL will be deleted, otherwise
     a gym administrator is deleting a different user
     '''
@@ -389,7 +388,6 @@ class UserEditView(WgerFormMixin,
     def dispatch(self, request, *args, **kwargs):
         '''
         Check permissions
-
         - Managers can edit members of their own gym
         - General managers can edit every member
         '''
@@ -456,7 +454,6 @@ class UserDetailView(LoginRequiredMixin, WgerMultiplePermissionRequiredMixin, De
     def dispatch(self, request, *args, **kwargs):
         '''
         Check permissions
-
         - Only managers for this gym can access the members
         - General managers can access the detail page of all users
         '''
