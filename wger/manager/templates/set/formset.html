@@ -1,5 +1,9 @@
 {% load wger_extras %}
 {% load i18n %}
+
+
+
+
 <div id="formset-exercise-{{exercise.id}}" style="margin-top: 1em;">
 <div class="row">
     <div class="col-md-offset-2 col-md-10">
@@ -9,7 +13,6 @@
     </div>
 </div>
 {{ formset.management_form }}
-
 {% for field in formset %}
 <div style="padding-top: 0.5em;">
 
@@ -34,7 +37,7 @@
         {% endif %}
         {% endfor %}
     </div>
-
+ 
     {# Form field rows #}
     <div class="row">
         {% for i in field %}
@@ -71,3 +74,46 @@
 </div>
 {% endfor %}
 </div>
+
+
+<script>
+        var noSets = document.getElementById('id_sets').value;
+        var value = '';
+        var noReps = '';
+        var id = document.querySelectorAll('input.form-control')[4].id;
+        var exerciseNo = id.replace(/^\D+|\D.*$/g, '');
+        var repsId = '';
+        var weightId = '';
+        var repClass = '';
+        var weightClass = '';
+        var i = null;
+        function getDropsets() {
+            if (noReps && value) {
+                for (i = 0; i <= noSets; i++) {
+                    repsId = 'id_exercise' + exerciseNo + '-' + i + '-reps';
+                    weightId = 'id_exercise' + exerciseNo + '-' + i + '-weight';
+                    document.getElementById(weightId).value = parseFloat(value).toFixed(0);
+                    document.getElementById(repsId).value = noReps;
+                    value -= value * 0.3;
+                }
+            }
+        }
+        function saveReps() {
+            noReps = document.getElementById('button-type1').value;
+            if (noReps < 1) {
+                repClass = 'col-xs-3 has-error';
+            } else {
+                repClass = 'col-xs-3';
+            }
+            document.getElementById('col-xs-3').className = repClass;
+        }
+        function saveWeight() {
+            value = document.getElementById('button-type2').value;
+            if (value < 30) {
+                weightClass = 'col-xs-4 has-error';
+            } else {
+                weightClass = 'col-xs-4';
+            }
+            document.getElementById('col-xs-4').className = weightClass;
+        }
+    </script>
