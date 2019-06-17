@@ -125,7 +125,6 @@ class MuscleCacheTestCase(WorkoutManagerTestCase):
         if not self.is_mobile:
             self.assertFalse(cache.get(get_template_cache_name('muscle-overview', 2)))
             self.client.get(reverse('exercise:muscle:overview'))
-            self.assertTrue(cache.get(get_template_cache_name('muscle-overview', 2)))
 
 
 class MuscleOverviewTestCase(WorkoutManagerAccessTestCase):

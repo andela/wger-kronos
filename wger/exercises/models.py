@@ -97,6 +97,9 @@ class Muscle(models.Model):
             cache.delete(cache_mapper.get_exercise_muscle_bg_key(exercise.id))
         super(Muscle, self).delete(*args, **kwargs)
 
+    def get_exercise_count(self):
+        return Exercise.objects.filter(muscles=self).count()
+
 
 @python_2_unicode_compatible
 class Equipment(models.Model):
