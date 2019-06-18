@@ -738,17 +738,15 @@ class WorkoutLog(models.Model):
         '''
         return self
 
-    def get_workout_session(self, date=None):
+    def get_workout_session(self):
         '''
         Returns the corresponding workout session
 
         :return the WorkoutSession object or None if nothing was found
         '''
-        if not date:
-            date = self.date
-
         try:
-            return WorkoutSession.objects.filter(user=self.user).get(date=date)
+            return WorkoutSession.objects.filter(
+                user=self.user).get(workoutlog=self.pk)
         except WorkoutSession.DoesNotExist:
             return None
 
@@ -802,7 +800,11 @@ class WorkoutSession(models.Model):
     '''
     The workout the session belongs to
     '''
-
+    workoutlog = models.ForeignKey(
+        WorkoutLog, verbose_name=_("workoutlog"),
+        null=True,
+        blank=True,
+    )
     date = Html5DateField(verbose_name=_('Date'))
     '''
     The date the workout session was performed
