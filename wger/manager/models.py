@@ -326,7 +326,7 @@ class ScheduleStep(models.Model):
     duration = models.IntegerField(verbose_name=_('Duration'),
                                    help_text=_('The duration in weeks'),
                                    default=4,
-                                   validators=[MinValueValidator(1), MaxValueValidator(25)])
+                                   validators=[MinValueValidator(1), MaxValueValidator(52)])
     '''The duration in weeks'''
 
     order = models.IntegerField(verbose_name=_('Order'),
@@ -741,7 +741,6 @@ class WorkoutLog(models.Model):
     def get_workout_session(self):
         '''
         Returns the corresponding workout session
-
         :return the WorkoutSession object or None if nothing was found
         '''
         try:
@@ -791,7 +790,6 @@ class WorkoutSession(models.Model):
                              verbose_name=_('User'))
     '''
     The user the workout session belongs to
-
     See note in weight.models.WeightEntry about why this is not editable=False
     '''
 
