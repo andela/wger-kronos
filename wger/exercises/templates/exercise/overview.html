@@ -28,6 +28,17 @@ $(document).ready(function() {
             window.location.href = '/exercise/' + suggestion.data.id + '/view/'
         }
     });
+
+    // View attributes of exercises on hover
+    $(".nav-tabs >li").hover(function(e) {
+        $(this).toggleClass('active')
+        e.target.setAttribute('aria-expanded',true)
+        var elmId = e.target.id;
+        var tabId = elmId.split("-");
+        if(tabId.length>1){
+            $('#tab-'+tabId[1]).toggleClass('active') 
+        }  
+    });
 });
 </script>
 {% endblock %}
