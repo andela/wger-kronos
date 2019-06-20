@@ -476,6 +476,24 @@
         }
     },
     {
+        "pk": 24, 
+        "model": "auth.user", 
+        "fields": {
+            "username": "inactive", 
+            "first_name": "rita", 
+            "last_name": "rita", 
+            "is_active": false, 
+            "is_superuser": false, 
+            "is_staff": true, 
+            "last_login": "2012-09-25T21:18:00.042Z", 
+            "groups": [],
+            "user_permissions": [], 
+            "password": "pbkdf2_sha256$10000$dAmN8USC9lXU$G/N0SFsSO17Kjkc/f9p8t9cy2INDyGMPCYrsmvjjd4s=", 
+            "email": "inactive@example.com", 
+            "date_joined": "2012-07-30T14:28:16.672Z"
+        }
+    }, 
+    {
         "pk": 1, 
         "model": "core.userprofile",
         "fields": {
