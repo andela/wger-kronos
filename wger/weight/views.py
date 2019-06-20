@@ -14,10 +14,14 @@
 #
 # You should have received a copy of the GNU Affero General Public License
 
+import os
 import logging
+import requests
 import csv
-import datetime
-
+import base64
+from datetime import datetime
+from django.contrib import messages
+from django.db import IntegrityError
 from django.shortcuts import render
 from django.http import HttpResponse
 from django.http import HttpResponseRedirect
@@ -30,6 +34,8 @@ from django.db.models import Min
 from django.db.models import Max
 from django.views.generic import CreateView
 from django.views.generic import UpdateView
+
+from fitbit import FitbitOauth2Client, Fitbit
 
 from rest_framework.response import Response
 from rest_framework.decorators import api_view
@@ -63,7 +69,7 @@ class WeightAddView(WgerFormMixin, CreateView):
         to pass the user here.
         '''
         return {'user': self.request.user,
-                'date': datetime.date.today()}
+                'date': datetime.today().strftime('%Y-%m-%d')}
 
     def form_valid(self, form):
         '''
@@ -122,6 +128,74 @@ def export_csv(request):
     response['Content-Disposition'] = 'attachment; filename=Weightdata.csv'
     response['Content-Length'] = len(response.content)
     return response
+
+
+@login_required
+def import_weight_from_fitbit(request):
+    '''
+    Imports a user's data from fitbit
+    '''
+
+    FITBIT_CLIENT_ID = os.environ.get('FITBIT_CLIENT_ID')
+    FITBIT_CLIENT_SECRET = os.environ.get('FITBIT_CLIENT_SECRET')
+    SITE_URL = os.environ.get('SITE_URL')
+
+    server = FitbitOauth2Client(FITBIT_CLIENT_ID, FITBIT_CLIENT_SECRET)
+    authorization_url = server.authorize_token_url(
+        redirect_uri=(SITE_URL + reverse('weight:fitbit'))
+    )[0]
+
+    if 'code' in request.GET:
+        code = request.GET.get('code')
+
+        headers = {
+            'Content-Type': 'application/x-www-form-urlencoded',
+            "Authorization": 'Basic ' + base64.b64encode(
+                FITBIT_CLIENT_ID.encode() + b':' + FITBIT_CLIENT_SECRET.encode()).decode()
+        }
+
+        data_params = {
+            'client_secret': FITBIT_CLIENT_SECRET,
+            'code': code,
+            'client_id': FITBIT_CLIENT_ID,
+            'grant_type': 'authorization_code',
+            'redirect_uri': SITE_URL + reverse('weight:fitbit')
+        }
+        response = requests.post(
+            server.request_token_url, data_params, headers=headers).json()
+
+        if "access_token" in response:
+            token = response['access_token']
+            headers['Authorization'] = 'Bearer ' + token
+
+        fitbit_request = Fitbit(client_id=FITBIT_CLIENT_ID, client_secret=FITBIT_CLIENT_SECRET,
+                                access_token=response['access_token'],
+                                refresh_token=response["refresh_token"], system="en_UK")
+
+        user_prof = fitbit_request.user_profile_get()
+        weight = user_prof["user"]["weight"]
+        try:
+            fetched_weight = WeightEntry()
+            fetched_weight.weight = weight
+            fetched_weight.user = request.user
+            fetched_weight.date = datetime.today().strftime('%Y-%m-%d')
+            fetched_weight.save()
+            messages.success(request, _('Successfully synced weight data.'))
+            return HttpResponseRedirect(
+                reverse('weight:overview', kwargs={
+                    'username': request.user.username}))
+        except IntegrityError:
+            messages.info(request, _('Already synced up for today.'))
+            return HttpResponseRedirect(
+                reverse('weight:overview', kwargs={
+                    'username': request.user.username}))
+
+        messages.warning(request, _("Something went wrong"))
+        authorization_url = server.authorize_token_url(
+            redirect_uri=SITE_URL + reverse('weight:fitbit'))[0]
+        return
+
+    return HttpResponseRedirect(authorization_url)
 
 
 def overview(request, username=None):
