@@ -29,6 +29,7 @@ from django.utils.translation import ugettext_lazy
 from django.db.models import Min
 from django.db.models import Max
 from django.views.generic import CreateView
+from django.contrib.auth.models import User
 from django.views.generic import UpdateView
 
 from rest_framework.response import Response
@@ -166,25 +167,29 @@ def get_weight_data(request, username=None):
     Process the data to pass it to the JS libraries to generate an SVG image
     '''
 
-    is_owner, user = check_access(request.user, username)
+    user = User.objects.filter(username=username)
 
     date_min = request.GET.get('date_min', False)
     date_max = request.GET.get('date_max', True)
 
     if date_min and date_max:
-        weights = WeightEntry.objects.filter(user=user,
-                                             date__range=(date_min, date_max))
+        owner_weights = WeightEntry.objects.filter(
+            user=request.user, date__range=(date_min, date_max))
+        other_weights = WeightEntry.objects.filter(user=user, date__range=(date_min, date_max))
     else:
-        weights = WeightEntry.objects.filter(user=user)
-
+        owner_weights = WeightEntry.objects.filter(user=request.user)
+        other_weights = WeightEntry.objects.filter(user=user)
+    chart_data_owner = []
     chart_data = []
+    for i in owner_weights:
+        chart_data.append({'owner': {'date': i.date, 'weight': i.weight}})
+        chart_data_owner.append({'owner': {'date': i.date, 'weight': i.weight}})
 
-    for i in weights:
-        chart_data.append({'date': i.date,
-                           'weight': i.weight})
-
-    # Return the results to the client
-    return Response(chart_data)
+    for j in other_weights:
+        chart_data.append({'other': {'date': j.date, 'weight': j.weight}})
+    if username:
+        return Response(chart_data)
+    return Response(chart_data_owner)
 
 
 class WeightCsvImportFormPreview(FormPreview):

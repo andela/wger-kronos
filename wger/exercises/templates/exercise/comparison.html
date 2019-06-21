@@ -1,0 +1,24 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% load staticfiles %}
+{% load wger_extras %}
+{% load cache %}
+{% load thumbnail %}
+<!--
+        Side bar
+-->
+{% block sidebar %}
+<h4>{% trans "Search" %}</h4>
+<!-- Load d3.js -->
+
+<script src="https://d3js.org/d3.v4.js"></script>
+<link rel="stylesheet" type="text/css" href="{% static 'css/style.css' %}">
+<!-- Create a div where the username comparison is inserted and button exist -->
+<div class="divsearch"><input  type="search" id="username" class="ajax-form-element form-control" placeholder="username"><button onclick="Compare('{{ url }}');" class="button btn-3">Search</button></div>
+
+<!-- Create a div where the graph will take place -->
+<div class="divbtn"><button class="button btn-1">CurrentUser</button><button class="button btn-2">OtherUser</button></div>
+<div id="my_dataviz" style="margin-left: 100%"></div>
+
+<script src="{% static 'js/graph.js' %}"></script>  
+{% endblock %}

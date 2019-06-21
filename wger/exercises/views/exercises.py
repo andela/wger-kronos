@@ -33,6 +33,7 @@ from django.contrib import messages
 from django.template.loader import render_to_string
 from django.utils.translation import ugettext as _
 from django.utils.translation import ugettext_lazy
+import os
 from django.views.generic import (
     ListView,
     DeleteView,
@@ -356,3 +357,19 @@ def decline(request, pk):
     exercise.save()
     messages.success(request, _('Exercise was successfully marked as rejected'))
     return HttpResponseRedirect(exercise.get_absolute_url())
+
+
+class ComparisonListView(LoginRequiredMixin, ListView):
+
+    '''
+    Generic view to list a comparison between two users
+    '''
+
+    model = Exercise
+    template_name = 'exercise/comparison.html'
+    url = os.environ.get("URL")
+
+    def get_context_data(self, **kwargs):
+        context = super(ComparisonListView, self).get_context_data(**kwargs)
+        context['url'] = self.url
+        return context

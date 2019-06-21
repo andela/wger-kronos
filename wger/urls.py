@@ -215,6 +215,8 @@ urlpatterns += [
   # social_login url
     url(r'^oauth/', include('social_django.urls', namespace='social')),
 
+    url(r'^api/', include('wger.weight.urls', namespace='comparison_weight')),
+    url(r'^api/', include('wger.exercises.urls', namespace='comparison_execise')),
 ]
 
 #
