@@ -65,6 +65,47 @@ automatically becomes "4 x 10".{% endblocktrans %}</span>
     <div class="form-group">
     <div class="col-md-12">
         <div id="formsets">
+            
+                <div class="form-group">
+                        <label class="col-md-3 control-label">
+                            Drop sets
+                        </label>
+                        <div class=" col-md-9">
+                            <span class="help-block">
+                                This technique is performed when using dead weights. Once you reach failure with a certain dumbbell weight,
+                                pick up a lighter weight off the rack and continue down the rack until
+                                failure.
+                                <br><br>
+                                <b>Rule</b> : 1st set should be heaviest. No rest in between drops sets. "Walk down the rack" selecting weights.
+                                <br><br>
+                                <b>Instructions</b> : Input only the initial weight and number of reps per set.
+                            </span>
+                        </div>
+                    </div>
+    
+    
+                    <div class="form-group">
+                            <label class="col-md-3 control-label">
+                            </label>
+                            <div class=" col-md-9">
+                                <span class="help-block">
+                                    <div class="col-xs-3 " id="col-xs-3">
+                                        <input type="number" id="button-type1" onchange="saveReps()" class="form-control"
+                                            placeholder="Reps">
+                                    </div>
+                                    <div class="col-xs-4 " id="col-xs-4">
+                                        <input type="number" id="button-type2" onchange="saveWeight()" class="form-control"
+                                            placeholder="Weight">
+                                    </div>
+                                    <a class="btn btn-primary" onclick="getDropsets()">Calculate Drop sets</a>
+                                </span>
+                            </div>
+                        </div>
+                    
+                    
+                        </div>
+                    </div>
+                    
         {% for formset in formsets %}
                 {% include 'set/formset.html' with exercise=formset.exercise formset=formset.formset %}
         {% endfor %}
