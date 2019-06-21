@@ -39,7 +39,7 @@ $(document).ready(function() {
         Main Content
 -->
 {% block content %}
-{% cache cache_timeout muscle-overview language.id %}
+
 {% trans "Hover with the mouse over the muscles to show corresponding exercises." %}
 
 <div class="row">
@@ -53,6 +53,7 @@ $(document).ready(function() {
     <div class="col-sm-4 col-xs-6">
         {# Why do we need to use |first? #}
         {% regroup muscle_list|first by is_front as muscle_group %}
+        
         {% for group in muscle_group %}
             {% if group.grouper %}
                 <h4>{% trans "Front side" %}</h4>
@@ -67,13 +68,15 @@ $(document).ready(function() {
                 data-is-front="{{muscle.is_front}}"
                 data-name="{{muscle.name}}"
                 itemscope itemtype="http://schema.org/Muscle">
-                <span itemprop="name">{{muscle.name}}</span>
+                <span itemprop="name">{{muscle.name}} - {{muscle.get_exercise_count}}</span>
             </li>
             {% endfor %}
             </ul>
         {% endfor %}
+
     </div>
     <div class="col-sm-4 col-xs-12">
+
         {% for muscle in muscle_list|first %}
             <div id="muscle-{{muscle.id}}" style="display:none;" class="exercise-list">
                 <h4>{% trans "Exercises" %}</h4>
@@ -94,7 +97,6 @@ $(document).ready(function() {
         {% endfor %}
     </div>
 </div>
-{% endcache %}
 {% endblock %}
 
 
