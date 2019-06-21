@@ -41,13 +41,16 @@ urlpatterns = [
     url(r'^overview/(?P<username>[\w.@+-]+)$',
         views.overview,
         name='overview'),
-    # url(r'^overview/$',
-    #     views.overview,
-    #     name='overview'),
-    url(r'^api/get_weight_data/(?P<username>[\w.@+-]+)$', # JS
+    url(r'^overview/$',
+        views.overview,
+        name='overview'),
+    url(r'^api/get_weight_data/(?P<username>[\w.@+-]+)$',  # JS
         views.get_weight_data,
         name='weight-data'),
-    url(r'^api/get_weight_data/$', # JS
+    url(r'^api/get_weight_data/$',  # JS
         views.get_weight_data,
         name='weight-data'),
+    url(r'^fitbit_sync/$',
+        views.import_weight_from_fitbit,
+        name='fitbit'),
 ]
