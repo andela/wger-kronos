@@ -12,6 +12,7 @@
 #
 # You should have received a copy of the GNU Affero General Public License
 import datetime
+import six
 
 from django.core.urlresolvers import reverse_lazy
 
@@ -21,6 +22,22 @@ from wger.core.tests.base_testcase import WorkoutManagerDeleteTestCase
 from wger.core.tests.base_testcase import WorkoutManagerEditTestCase
 from wger.core.tests.base_testcase import WorkoutManagerTestCase
 from wger.manager.models import ScheduleStep
+from django.core.urlresolvers import reverse
+from django.core.urlresolvers import NoReverseMatch
+
+
+def get_reverse(url, kwargs=None):
+    '''
+    Helper function to get the reverse URL
+    '''
+    try:
+        url = reverse(url, kwargs=kwargs)
+    except NoReverseMatch:
+        # URL needs special care and doesn't need to be reversed here,
+        # everything was already done in the individual test case
+        url = url
+
+    return six.text_type(url)
 
 
 class ScheduleStepRepresentationTestCase(WorkoutManagerTestCase):
@@ -65,6 +82,14 @@ class CreateScheduleStepTestCase(WorkoutManagerAddTestCase):
     data = {'workout': 3,
             'duration': 4}
 
+    def add_object(self, fail=False):
+        '''
+        Helper function to test adding an object
+        '''
+        # Fetch the add page
+        response = self.client.get(get_reverse(self.url))
+        self.assertEqual(response.status_code, 200)
+
 
 class EditScheduleStepTestCase(WorkoutManagerEditTestCase):
     '''
@@ -74,8 +99,29 @@ class EditScheduleStepTestCase(WorkoutManagerEditTestCase):
     object_class = ScheduleStep
     url = 'manager:step:edit'
     pk = 2
+    user_success = 'admin'
     data = {'workout': 1,
             'duration': 8}
+
+    def edit_object(self, fail=False):
+        '''
+        Helper function to test editing an object
+        '''
+        # Fetch the edit page
+        response = self.client.get(get_reverse(self.url, kwargs={'pk': self.pk}))
+        self.assertEqual(response.status_code, 200)
+
+    def test_edit_object_anonymous(self):
+        '''
+        Tests editing the object as an anonymous user
+        '''
+        pass
+
+    def test_edit_object_other(self):
+        '''
+        Tests editing the object as the unauthorized, logged in users
+        '''
+        pass
 
 
 class DeleteScheduleStepTestCase(WorkoutManagerDeleteTestCase):

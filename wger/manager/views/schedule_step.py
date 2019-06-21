@@ -16,11 +16,12 @@
 
 import logging
 
+from django import forms
 from django.contrib.auth.mixins import PermissionRequiredMixin
 from django.core.urlresolvers import reverse
 from django.utils.translation import ugettext_lazy, ugettext as _
 from django.db import models
-from django.forms import ModelForm, ModelChoiceField
+from django.forms import ModelForm, ModelChoiceField, Form, ChoiceField
 from django.views.generic import (
     CreateView,
     DeleteView,
@@ -39,6 +40,12 @@ from wger.utils.generic_views import (
 
 
 logger = logging.getLogger(__name__)
+CYCLE_CHOICES = [
+    ("1", "Microcycle"),
+    ("2", "Mesocycle"),
+    ("3", "Macrocycle"),
+    ("4", "Custom")
+]
 
 
 class StepCreateView(WgerFormMixin, CreateView, PermissionRequiredMixin):
@@ -58,11 +65,24 @@ class StepCreateView(WgerFormMixin, CreateView, PermissionRequiredMixin):
         have we access to the current user
         '''
 
-        class StepForm(ModelForm):
+        class StepForm(ModelForm, forms.Form):
+            weeks = tuple((element, "{} weeks".format(element)) for element in range(1, 53))
             workout = ModelChoiceField(queryset=Workout.objects.filter(user=self.request.user))
+            cycle = ChoiceField(
+                choices=CYCLE_CHOICES,
+                initial=CYCLE_CHOICES[3],
+                widget=forms.Select(attrs={'onchange': 'cycleChange()'})
+            )
+
+            duration = ChoiceField(
+                choices=weeks, initial=4,
+                widget=forms.Select(),
+                help_text=_('The duration in weeks')
+            )
 
             class Meta:
                 model = ScheduleStep
+                fields = ('workout', 'cycle', 'duration')
                 exclude = ('order', 'schedule')
 
         return StepForm
@@ -99,16 +119,28 @@ class StepEditView(WgerFormMixin, UpdateView, PermissionRequiredMixin):
     def get_form_class(self):
         '''
         The form can only show the workouts belonging to the user.
-
         This is defined here because only at this point during the request
         have we access to the current user
         '''
 
-        class StepForm(ModelForm):
+        class StepForm(ModelForm, forms.Form):
+            weeks = tuple((element, "{} weeks".format(element)) for element in range(1, 53))
             workout = ModelChoiceField(queryset=Workout.objects.filter(user=self.request.user))
+            cycle = ChoiceField(
+                choices=CYCLE_CHOICES,
+                initial=CYCLE_CHOICES[3],
+                widget=forms.Select(attrs={'onchange': 'cycleChange()'})
+            )
+
+            duration = ChoiceField(
+                choices=weeks, initial=4,
+                widget=forms.Select(),
+                help_text=_('The duration in weeks')
+            )
 
             class Meta:
                 model = ScheduleStep
+                fields = ('workout', 'cycle', 'duration')
                 exclude = ('order', 'schedule')
 
         return StepForm

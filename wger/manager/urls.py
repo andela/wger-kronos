@@ -223,7 +223,7 @@ patterns_schedule = [
 
 # sub patterns for schedule steps
 patterns_step = [
-    url(r'^(?P<schedule_pk>\d+)/step/add$',
+    url(r'^(?P<schedule_pk>\d+)/step/add/$',
         schedule_step.StepCreateView.as_view(),
         name='add'),
     url(r'^(?P<pk>\d+)/edit$',
