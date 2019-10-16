@@ -187,7 +187,8 @@ class Exercise(AbstractSubmissionModel, AbstractLicenseModel, models.Model):
                                  verbose_name=_('Category'))
     description = models.TextField(max_length=2000,
                                    verbose_name=_('Description'),
-                                   validators=[MinLengthValidator(40)])
+                                   validators=[MinLengthValidator(40)],
+                                   blank=True)
     '''Description on how to perform the exercise'''
 
     name = models.CharField(max_length=200,
@@ -229,6 +230,10 @@ class Exercise(AbstractSubmissionModel, AbstractLicenseModel, models.Model):
                             max_length=36,
                             editable=False,
                             default=uuid.uuid4)
+
+    author = models.ForeignKey(User, blank=True,
+                               null=True,
+                               related_name='Author')
     '''
     Globally unique ID, to identify the exercise across installations
     '''
