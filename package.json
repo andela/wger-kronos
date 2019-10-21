@@ -21,7 +21,7 @@
   },
   "homepage": "https://github.com/wger-kronos/wger",
   "devDependencies": {
-    "eslint": "3.3.1",
+    "eslint": "6.5.1",
     "eslint-config-airbnb-base": "5.0.2",
     "eslint-plugin-import": "^1.13.0",
     "eslint-plugin-jsx-a11y": "^2.1.0",
